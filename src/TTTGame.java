@@ -54,9 +54,9 @@ public class TTTGame
 	public static void clearBoard()
 	{
 		int num = 1;
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < gameBoard.length; i++)
 		{
-			for(int j = 0; j < 4; j++)
+			for(int j = 0; j < gameBoard.length; j++)
 			{
 				gameBoard[i][j] = ""+num+"";
 				num++;
@@ -113,7 +113,7 @@ public class TTTGame
 		{
 			
 			//here we have the horizontal and vertical win checks
-			for(int i = 0; i < 2; i++)
+			for(int i = 0; i < gameBoard.length; i++)
 			{
 				if(gameBoard[0][i] == "X" && gameBoard[1][i] == "X" && gameBoard[2][i] == "X")
 				{
@@ -248,91 +248,232 @@ public class TTTGame
 			
 		}
 		
+		//this is the method for the bot to block
+		//the bot will check every vertical and horizontal and diagonal
 		public static void block ()
 		{
-			for(int i = 0; i < 2; i++)
+			//here we have the horizonal
+			for(int i = 0; i < gameBoard.length; i++)
 			{
-				if(gameBoard[0][i] == "X" && gameBoard[1][i] == "X")
-				{
-					if(gameBoard[2][i] != "O")
+				int counter = 0;
+				for(int j = 0; j < gameBoard.length; j++)
+				{ 
+					if(gameBoard[i][j].equals("X"))
 					{
-						gameBoard[2][i] = "O";
-						p2 += 2;
-					 	turns += 1;
-					 	TTTGame.PrintBoard();
-					 	TTTGame.CheckWin();
+						counter++;
 					}
 				}
-				if(gameBoard[i][0] == "X" && gameBoard[i][1] == "X")
+				if(counter==2)
 				{
-					if(gameBoard[i][2] != "O")
+					for(int j = 0; j < gameBoard.length; j++)
 					{
-						gameBoard[i][2] = "O";
-						p2 += 2;
-					 	turns += 1;
-					 	TTTGame.PrintBoard();
-					 	TTTGame.CheckWin();
+						if(!gameBoard[i][j].equals("X"))
+						{
+							gameBoard[i][j] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
+					}
+				}
+			}
+			
+			//here we have the vertical
+			for(int i = 0; i < gameBoard.length; i++)
+			{
+				int counter = 0;
+				for(int j = 0; j < gameBoard.length; j++)
+				{ 
+					if(gameBoard[j][i].equals("X"))
+					{
+						counter++;
+					}
+				}
+				if(counter==2)
+				{
+					for(int j = 0; j < gameBoard.length; j++)
+					{
+						if(!gameBoard[j][i].equals("X"))
+						{
+							gameBoard[j][i] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
+					}
+				}
+			}
+			
+			
+			//here we will have the diaonals
+			//this counter is for the diagonals
+			int counter = 0;
+			
+			//the down diagonal from left to right
+			for(int i = 0, j = 0; i < gameBoard.length; i++, j++)
+			{
+				{
+					if(gameBoard[i][i].equals("X"))
+					{
+						counter++;
+					}
+					if(counter == 2)
+					{
+						for(i = 0, j = 0; i < gameBoard.length; i++, j--)
+						{
+							if(!gameBoard[i][j].equals("X") && !gameBoard[i][j].equals("O"))
+							{
+								gameBoard[i][j] = "O";
+								p2 += 2;
+							 	turns += 1;
+							 	TTTGame.PrintBoard();
+							 	TTTGame.CheckWin();
+							}
+						}
+					}
+					
+				}
+			}
+			
+			//the down diagonal from right to left 
+			for(int i= 0, j = 2; i < gameBoard.length ; i++, j--)
+			{
+				
+				if(gameBoard[i][j].equals("X")) 
+				{
+					counter++;
+				}
+				if(counter == 2)
+				{
+					for(i = 0, j = 2; i < gameBoard.length; i++, j--)
+					{
+						if(!gameBoard[i][j].equals("X") && !gameBoard[i][j].equals("O"))
+						{
+							gameBoard[i][j] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
 					}
 				}
 				
 			}
 		}
 		
+		//here we will have the check statement for the AI to see if it has won
 		public static void win()
 		{
-			for(int i = 0; i < 2; i++)
+			//here we have the horizonal
+			for(int i = 0; i < gameBoard.length; i++)
 			{
-				if(gameBoard[0][i] == "O" && gameBoard[1][i] == "O")
-				{
-					if(gameBoard[2][i] != "X")
+				int counter = 0;
+				for(int j = 0; j < gameBoard.length; j++)
+				{ 
+					if(gameBoard[i][j].equals("O"))
 					{
-						gameBoard[2][i] = "O";
-						p2 += 2;
-					 	turns += 1;
-					 	TTTGame.PrintBoard();
-					 	TTTGame.CheckWin();
+						counter++;
 					}
-					
-				 	
 				}
-				if(gameBoard[i][0] == "O" && gameBoard[i][1] == "O")
+				if(counter == 2)
 				{
-					if(gameBoard[i][2] != "X")
+					for(int j = 0; j < gameBoard.length; j++)
 					{
-						gameBoard[i][2] = "O";
-						p2 += 2;
-					 	turns += 1;
-					 	TTTGame.PrintBoard();
-					 	TTTGame.CheckWin();
+						if(!gameBoard[i][j].equals("X"))
+						{
+							gameBoard[i][j] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
 					}
 				}
 			}
 			
-		}
-		
-		/**
-		for(int i = 0; i < len; i++)
-		{
-			int counter = 0;
-			for(int j = 0; j < len; j++)
+			//here we have the Vertical
+			for(int i = 0; i < gameBoard.length; i++)
 			{
-				if(gameBoard[i][j].equals("X"))
-				{
-					counter++;
-				}
-			}
-			if(counter==2)
-			{
-				for(int j = 0; j < len; j++)
-				{
-					if(gameBoard[i][j].equals(" "))
+				int counter = 0;
+				for(int j = 0; j < gameBoard.length; j++)
+				{ 
+					if(gameBoard[j][i].equals("O"))
 					{
-						gameBoard[i][j] = "O";
+						counter++;
+					}
+				}
+				if(counter==2)
+				{
+					for(int j = 0; j < gameBoard.length; j++)
+					{
+						if(!gameBoard[j][i].equals("X") && !gameBoard[j][i].equals("O"))
+						{
+							gameBoard[j][i] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
 					}
 				}
 			}
+			
+			//this counter is for the diagonals
+			int counter = 0;
+			
+			//the down diagonal from left to right
+			for(int i = 0, j = 0; i < gameBoard.length; i++, j++)
+			{
+				{
+					if(gameBoard[i][i].equals("0"))
+					{
+						counter++;
+					}
+					if(counter == 2)
+					{
+						for(i = 0, j = 0; i < gameBoard.length; i++, j--)
+						{
+							if(!gameBoard[i][j].equals("O") && !gameBoard[i][j].equals("X"))
+							{
+								gameBoard[i][j] = "O";
+								p2 += 2;
+							 	turns += 1;
+							 	TTTGame.PrintBoard();
+							 	TTTGame.CheckWin();
+							}
+						}
+					}
+					
+				}
+			}
+			
+			//the down diagonal from right to left 
+			for(int i= 0, j = 2; i < gameBoard.length ; i++, j--)
+			{
+				
+				if(gameBoard[i][j].equals("O")) 
+				{
+					counter++;
+				}
+				if(counter == 2)
+				{
+					for(i = 0, j = 2; i < gameBoard.length; i++, j--)
+					{
+						if(!gameBoard[i][j].equals("O") && !gameBoard[i][j].equals("X"))
+						{
+							gameBoard[i][j] = "O";
+							p2 += 2;
+						 	turns += 1;
+						 	TTTGame.PrintBoard();
+						 	TTTGame.CheckWin();
+						}
+					}
+				}
+				
+			}
 		}
-		*/
 		
 		
 		
