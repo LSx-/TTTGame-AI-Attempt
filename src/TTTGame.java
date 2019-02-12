@@ -5,8 +5,16 @@ import java.util.Scanner;
  * @author Michael 'LSx' Castillo
  * 
  * I had help with Michael Pascale for checking the win cases
- * the reason why is because I was hard coding  most of my win cases
- * and he helped me out in understanding
+ * the reason why is because I was hard coding most of my win cases
+ * and he helped me out most of it out and helped me understand
+ * and also for helping me get an idea on how to start the AI part of the program
+ *
+ * I also want to give credit to stack overflow for helping me remember
+ * how to make Math.Random() have a range between 1 and 9
+ *
+ * Lastly I want to give credit to the eclipse IDE for giving me tips
+ * on how to fix my errors 
+ *
  *
  */
 public class TTTGame 
